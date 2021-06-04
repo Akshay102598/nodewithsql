@@ -1,0 +1,69 @@
+#table.js
+
+const sql = require('mysql');
+var connection=sql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"",
+    database: "jr"
+});
+
+connection.connect((err)=>
+{
+    if(err)
+        console.log(err);
+    console.log('Connected...');
+    connection.query("CREATE Table school (rollno Int(10),name VARCHAR(255),sub VARCHAR(255),marks INT(10) )", function (err, result) {
+        if (err) throw err;
+        console.log("Table created");
+      });
+});
+
+#insert.js
+
+const sql = require('mysql');
+var connection=sql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"",
+    database: "jr"
+});
+
+connection.connect((err)=>
+{
+    if(err)
+        console.log(err);
+    console.log('Connected...');
+    var sql = "INSERT INTO school(rollno ,name ,sub ,marks ) VALUES ?";
+    var values =[[1,'Akshay','Science',95],
+    [2,'Suresh','History',80],
+    [3,'Ramesh','Maths',65],
+    [4,'Ganesh','English',90],
+  
+];
+connection.query(sql, [values], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records inserted: " + result.affectedRows);
+  });
+
+});
+
+#query.js
+
+const sql = require('mysql');
+var connection=sql.createConnection({
+    host:"localhost",
+    user:"root",
+    password:"",
+    database: "jr"
+});
+
+connection.connect((err)=>
+{
+    if(err)
+        console.log(err);
+        connection.query("SELECT * FROM school WHERE rollno <5", function (err, result, fields) {
+            if (err) throw err;
+            console.log(result);
+  });
+});
